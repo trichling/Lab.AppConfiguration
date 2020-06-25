@@ -1,0 +1,34 @@
+az appconfig kv set --key leckerito:Lab:AppSettings:ReloadSentinel ^
+    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
+    --value 0
+
+az appconfig kv set --key leckerito:Lab:AppSettings:Theme ^
+    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
+    --value Dark
+
+az appconfig kv set --key leckerito:Lab:AppSettings:FontSize ^
+    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
+    --value 24
+
+az appconfig kv set --key leckerito:Lab:AppSettings:DefaultCulture ^
+    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
+    --value de-DE
+
+az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
+    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
+    --value "Guten Morgen!!"
+
+az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
+    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
+    --value "Good morning." ^
+    --label "en-US"
+
+az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
+    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
+    --value "Bonjour!" ^
+    --label "fr-FR"
+
+az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
+    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
+    --value "Goedemorgen!!" ^
+    --label "nl-NL"

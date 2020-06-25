@@ -1,8 +1,15 @@
 ﻿@page
 @model IndexModel
+
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @{
     ViewData["Title"] = "Home page";
 }
+
+<link rel="stylesheet" href="/@($"css/{@Model.AppSettings.Theme}.css")" />
+
+<h1>@Configuration["leckerito:Lab:AppSettings:Greeting"]</h1>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
