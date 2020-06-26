@@ -26,6 +26,7 @@ namespace Lab.AppConfiguration
                         var settings = config.Build();
                         config.AddAzureAppConfiguration(options => {
                             options.Connect(settings["ConnectionStrings:AppConfig"])
+                                    // For live updates
                                     .ConfigureRefresh(refresh => 
                                     {
                                         refresh.Register("leckerito:Lab:AppSettings:ReloadSentinel", refreshAll: true)

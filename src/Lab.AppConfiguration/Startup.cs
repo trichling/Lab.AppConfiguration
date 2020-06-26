@@ -24,6 +24,7 @@ namespace Lab.AppConfiguration
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // For live updates
             services.Configure<AppSettings>(Configuration.GetSection("leckerito:Lab:AppSettings"));
             services.AddRazorPages();
         }
@@ -42,7 +43,11 @@ namespace Lab.AppConfiguration
                 app.UseHsts();
             }
 
+            // For live updates
+            app.UseAzureAppConfiguration();
+
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
