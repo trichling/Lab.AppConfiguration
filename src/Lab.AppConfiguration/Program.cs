@@ -23,8 +23,11 @@ namespace Lab.AppConfiguration
                 {
                     webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
                     {
+                        // hostingContext.HostingEnvironment.IsProduction()
+
                         var settings = config.Build();
                         config.AddAzureAppConfiguration(options => {
+                            // Connect with ConnectionString from User Secrets
                             options.Connect(settings["ConnectionStrings:AppConfig"])
                                     // For live updates
                                     .ConfigureRefresh(refresh => 
