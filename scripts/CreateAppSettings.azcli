@@ -1,34 +1,49 @@
+# Create service principal
+az ad sp create-for-rbac -n "http://leckeriteo/ServicePrincipal" --sdk-auth
+# Allow principal access to key valut (must be created in advance)
+az keyvault set-policy -n leckerito-KeyVault --spn 3d671768-1f99-446f-9a4b-d5438891e95a --secret-permissions delete get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
+
+# Set configuration keys
+# default endpoint (shold not be checked in :-)
+az  configure --defaults appconfig_connection_string=<EndpointConnectionString>
+
 az appconfig kv set --key leckerito:Lab:AppSettings:ReloadSentinel ^
-    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
     --value 0
 
 az appconfig kv set --key leckerito:Lab:AppSettings:Theme ^
-    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
     --value Dark
 
 az appconfig kv set --key leckerito:Lab:AppSettings:FontSize ^
-    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
     --value 24
 
 az appconfig kv set --key leckerito:Lab:AppSettings:DefaultCulture ^
-    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
     --value de-DE
 
 az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
-    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
     --value "Guten Morgen!!"
 
 az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
-    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
-    --value "Good morning." ^
-    --label "en-US"
+    --value "Guten Morgen Development!!" ^
+    --label "Development"
 
 az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
-    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
-    --value "Bonjour!" ^
-    --label "fr-FR"
+    --value "Guten Morgen Staging!!" ^
+    --label "Staging"
 
 az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
-    --connection-string Endpoint=https://leckeritoappsettings.azconfig.io;Id=IQla-l9-s0:M0EJf7M6v75hcJVIQlkI;Secret=Kq0a8h3BAkmChDOMx1vVQFu0ME8s6MmT11DsBoO6f4A= ^
-    --value "Goedemorgen!!" ^
-    --label "nl-NL"
+    --value "Guten Morgen Production!!" ^
+    --label "Production"
+
+
+# Set auth-info as secrets in application
+dotnet user-secrets init
+dotnet add package Microsoft.Azure.AppConfiguration.AspNetCore
+dotnet add package Azure.Identity
+
+dotnet restore
+
+dotnet user-secrets set Azure:LeckeritoServicePrinzipal:ClientId 3d671768-1f99-446f-9a4b-d5438891e95a
+dotnet user-secrets set Azure:LeckeritoServicePrinzipal:ClientSecret <ClientSecret>
+dotnet user-secrets set Azure:LeckeritoServicePrinzipal:TenantId <TenantId>
+
+

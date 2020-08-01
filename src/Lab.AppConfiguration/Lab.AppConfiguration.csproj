@@ -5,6 +5,7 @@
     <UserSecretsId>ffc43dd7-2664-4474-8570-660d4ada20c4</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.1.1" />
     <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="3.0.1" />
   </ItemGroup>
 </Project>
