@@ -34,6 +34,15 @@ az appconfig kv set --key leckerito:Lab:AppSettings:Greeting ^
     --value "Guten Morgen Production!!" ^
     --label "Production"
 
+# Define a secret in key vault / create reference in app configuration
+# Run in a powershell!!
+$uri = az keyvault secret set --vault-name "leckerito-KeyVault" --name "leckerito-Lab-AppSettings-SecretKey" `
+    --value "Sehr geheimes Geheimniss" `
+    --query=id -o tsv
+
+az appconfig kv set --key "leckerito:Lab-AppSettings:SecretKey" `
+--value "{`"uri`":`"$uri`"}" `
+--content-type "application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8" 
 
 # Set auth-info as secrets in application
 dotnet user-secrets init

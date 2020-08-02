@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="/@($"css/{@Model.AppSettings.Theme}.css")" />
 
 <p>
-<h1>@Configuration["leckerito:Lab:AppSettings:Greeting"]</h1>
+<h1>Dynamisch: @Configuration["leckerito:Lab:AppSettings:Greeting"]</h1>
+<h2>Strongly Typed: @Model.AppSettings.Greeting</h2>
 </p>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
