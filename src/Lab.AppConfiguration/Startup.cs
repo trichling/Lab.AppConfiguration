@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.FeatureManagement;
 
 namespace Lab.AppConfiguration
 {
@@ -25,6 +26,7 @@ namespace Lab.AppConfiguration
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration.GetSection("leckerito:Lab:AppSettings"));
+            services.AddFeatureManagement();
             services.AddRazorPages();
         }
 

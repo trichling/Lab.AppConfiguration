@@ -25,8 +25,6 @@ namespace Lab.AppConfiguration
                 {
                     webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
                     {
-                        // hostingContext.HostingEnvironment.IsProduction()
-
                         var settings = config.Build();
                         //var azureAppConfigConnectionString = settings["ConnectionStrings:AppConfig"];
 
@@ -38,20 +36,24 @@ namespace Lab.AppConfiguration
 
                         config.AddAzureAppConfiguration(options => {
                             options.Connect(new Uri("https://leckeritoappsettings.azconfig.io/"), credentials)
-                            // Connect with ConnectionString from User Secrets
                             //options.Connect(azureAppConfigConnectionString)
-                                    // For live updates
-                                    .ConfigureRefresh(refresh => 
-                                    {
-                                        refresh.Register("leckerito:Lab:AppSettings:ReloadSentinel", refreshAll: true)
-                                                .SetCacheExpiration(new TimeSpan(0, 0, 3));
-                                    })
-                                    .ConfigureKeyVault(kv => {
-                                        kv.SetCredential(credentials);
-                                    })
-                                    .Select("leckerito:Lab:AppSettings:*", LabelFilter.Null)
-                                    // Override with any configuration values specific to current hosting env
-                                    .Select("leckerito:Lab:AppSettings:*", hostingContext.HostingEnvironment.EnvironmentName);
+                                .UseFeatureFlags(options => {
+                                    options.CacheExpirationTime = new TimeSpan(0, 0, 3);
+                                    options.Label = hostingContext.HostingEnvironment.EnvironmentName;
+                                })
+                                // For live updates
+                                .ConfigureRefresh(refresh => 
+                                {
+                                    refresh.Register("leckerito:Lab:AppSettings:ReloadSentinel", refreshAll: true)
+                                            .SetCacheExpiration(new TimeSpan(0, 0, 3));
+                                })
+                                .ConfigureKeyVault(kv => {
+                                    kv.SetCredential(credentials);
+                                })
+                                .Select("leckerito:Lab:AppSettings:*", LabelFilter.Null)
+                                // Override with any configuration values specific to current hosting env
+                                .Select("leckerito:Lab:AppSettings:*", hostingContext.HostingEnvironment.EnvironmentName);
+                                    
                         });
                     });
 
