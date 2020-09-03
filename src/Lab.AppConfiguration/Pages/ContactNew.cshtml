@@ -1,0 +1,16 @@
+﻿@page
+@model Lab.AppConfiguration.Pages.ContactNewModel
+@{
+}
+
+<h1>Neues funky Kontaktformular</h1>
+
+
+<form method="post">
+    Email:
+    <input asp-for="ContactRequest.Email" />
+    <br />
+    <input asp-for="ContactRequest.Text" />
+    <br />
+    <input type="submit" />
+</form>

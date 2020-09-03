@@ -1,0 +1,15 @@
+﻿@page
+@model Lab.AppConfiguration.Pages.ContactModel
+@{
+}
+
+<h1>Das alte und langweilige Kontaktformular</h1>
+
+<p>Enter a customer name:</p>
+
+<form method="post">
+    Email:
+    <input asp-for="ContactRequest.Email" />
+    <input asp-for="ContactRequest.Text" />
+    <input type="submit" />
+</form>
