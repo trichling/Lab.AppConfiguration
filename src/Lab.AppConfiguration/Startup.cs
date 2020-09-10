@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
+using Microsoft.FeatureManagement.FeatureFilters;
 
 namespace Lab.AppConfiguration
 {
@@ -27,14 +28,16 @@ namespace Lab.AppConfiguration
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(Configuration.GetSection("leckerito:Lab:AppSettings"));
-            services.AddFeatureManagement();
+
+            services.AddHttpContextAccessor();
+            services.AddTransient<ITargetingContextAccessor, TargetingContextAcessor>();
+            services.AddFeatureManagement()
+                .AddFeatureFilter<PercentageFilter>()
+                .AddFeatureFilter<TargetingFilter>();
+
             services.AddRazorPages();
 
             services.AddTransient<IEmailService, EmailService>();
-
-            services.AddTransient<ContactService>();
-            services.AddTransient<ContactServiceNew>();
-
 
             services.AddTransient<IContactService>(services => {
                 var featureManager = (IFeatureManagerSnapshot)services.GetRequiredService(typeof(IFeatureManagerSnapshot));
@@ -45,6 +48,9 @@ namespace Lab.AppConfiguration
 
                 return (IContactService)services.GetRequiredService(typeof(ContactService));
             });
+
+            services.AddTransient<ContactService>();
+            services.AddTransient<ContactServiceNew>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

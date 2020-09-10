@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
+using Microsoft.FeatureManagement.FeatureFilters;
 
 namespace Lab.AppConfiguration.Pages
 {
@@ -15,13 +16,15 @@ namespace Lab.AppConfiguration.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IFeatureManagerSnapshot _featureManager;
+        private readonly ITargetingContextAccessor _targetingContextAccessor;
 
         public AppSettings AppSettings { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IOptionsSnapshot<AppSettings> appSettings,
-                          IFeatureManagerSnapshot featureManager)
+                          IFeatureManagerSnapshot featureManager, ITargetingContextAccessor targetingContextAccessor)
         {
             _featureManager = featureManager;
+            _targetingContextAccessor = targetingContextAccessor;
             _logger = logger;
 
             AppSettings = appSettings.Value;
@@ -29,7 +32,8 @@ namespace Lab.AppConfiguration.Pages
 
         public async Task OnGet()
         {
-            var isActive = await _featureManager.IsEnabledAsync("NewContactForm");
+            var targetingContext = await  _targetingContextAccessor.GetContextAsync();
+            var isActive = await _featureManager.IsEnabledAsync("NewContactForm", targetingContext);
         }
     }
 }
