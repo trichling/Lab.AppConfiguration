@@ -33,7 +33,7 @@ namespace Lab.AppConfiguration.Pages
         public async Task OnGet()
         {
             var targetingContext = await  _targetingContextAccessor.GetContextAsync();
-            var isActive = await _featureManager.IsEnabledAsync("NewContactForm", targetingContext);
+            var isActive = await _featureManager.IsEnabledAsync("NewContactPage", targetingContext);
         }
     }
 }
